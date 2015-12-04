@@ -1,6 +1,6 @@
 {
   "name": "vocabulary.com",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "CLI for Vocabulary.com",
   "main": "learn.js",
   "bin": {
