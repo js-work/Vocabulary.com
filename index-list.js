@@ -2,6 +2,7 @@ var Promise = require('bluebird');
 var agent = require('./agent');
 var fs = require('fs');
 var path = require('path');
+var login = require('./login');
 var program = require('commander');
 
 function list(listID) {
@@ -22,40 +23,8 @@ function list(listID) {
   }
 }
 
-function login(username, password) {
-  return new Promise(function(resolve, reject) {
-    agent.post('https://www.vocabulary.com/login/')
-    .type('form')
-    .send({
-      username: username,
-      password: password
-    })
-    .end(function(err, res) {
-      if (err) {
-        reject(err);
-      }
-      resolve(res);
-    });
-  });
-}
-
-function getCertificate() {
-  return new Promise(function(resolve, reject) {
-    fs.readFile(path.resolve('./secret.json'), 'utf8', function(err, data) {
-      if(err) {
-        reject(err);
-      }
-
-      resolve(JSON.parse(data));
-    });
-  });
-}
-
 (function listAll() {
-  getCertificate()
-  .then(function(cert) {
-    return login(cert.username, cert.password);
-  })
+  login()
   .then(list(619560))
   .then(function(res) {
     console.log(JSON.parse(res.text).result);

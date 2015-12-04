@@ -36,23 +36,9 @@ function addingWord(word) {
   }
 }
 
-function getCertificate() {
-  return new Promise(function(resolve, reject) {
-    fs.readFile(path.resolve('./secret.json'), 'utf8', function(err, data) {
-      if(err) {
-        reject(err);
-      }
-      resolve(JSON.parse(data));
-    });
-  });
-}
-
 (function() {
   var word = program.args[0];
-  getCertificate()
-  .then(function(cert) {
-    return login(cert.username, cert.password);
-  })
+  login()
   .then(addingWord(word))
   .then(function(res) {
     console.log(res.status);
