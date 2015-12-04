@@ -1,9 +1,18 @@
-#!/usr/bin/env node
 var Promise = require('bluebird');
+var fs = require('fs');
+var path = require('path');
 var agent = require('./agent');
 var program = require('commander');
+var login = require('./login');
+
+program
+.parse(process.argv);
 
 function addingWord(word) {
+  var words = [{
+    word: word,
+    lang: 'en'
+  }];
   return function() {
     return new Promise(function(resolve, reject) {
       agent.post('http://www.vocabulary.com/lists/save.json')
@@ -14,7 +23,7 @@ function addingWord(word) {
         'Referer': 'http://www.vocabulary.com/dictionary/book'
       })
       .send({
-        addwords: '[{"word":"notification","lang":"en"}]',
+        addwords: JSON.stringify(words),
         id: '619560'
       })
       .end(function(err, res) {
@@ -27,36 +36,26 @@ function addingWord(word) {
   }
 }
 
-function login(username, password) {
+function getCertificate() {
   return new Promise(function(resolve, reject) {
-    agent.post('https://www.vocabulary.com/login/')
-    .type('form')
-    .send({
-      username: username,
-      password: password
-    })
-    .end(function(err, res) {
-      if (err) {
+    fs.readFile(path.resolve('./secret.json'), 'utf8', function(err, data) {
+      if(err) {
         reject(err);
       }
-      resolve(res);
+      resolve(JSON.parse(data));
     });
   });
 }
 
-function addWord() {
-  login('hoangtrieukhang@gmail.com', '123#@!MinhKhang')
-  .then(addingWord('something'))
+(function() {
+  var word = program.args[0];
+  getCertificate()
+  .then(function(cert) {
+    return login(cert.username, cert.password);
+  })
+  .then(addingWord(word))
   .then(function(res) {
     console.log(res.status);
   })
   .catch(console.log.bind(console));
-}
-
-program
-.version('0.0.2')
-.command('hi [word]', 'add word to specific list')
-.command('add <word>', 'add word to specific list')
-.command('list', 'list add the list of yours')
-.command('login <username> <password>', 'login')
-.parse(process.argv);
+})();
