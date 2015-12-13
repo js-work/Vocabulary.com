@@ -1,6 +1,6 @@
 {
   "name": "vocabulary.com",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "dependencies": {
     "bluebird": {
       "version": "3.0.6",

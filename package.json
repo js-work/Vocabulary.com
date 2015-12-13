@@ -1,12 +1,13 @@
 {
   "name": "vocabulary.com",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "CLI for Vocabulary.com",
   "main": "learn.js",
   "bin": {
     "learn": "learn.js"
   },
   "scripts": {
+    "postinstall": "npm install",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node learn.js"
   },
