@@ -7,7 +7,7 @@
     "learn": "learn.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha test/",
     "start": "node learn.js"
   },
   "keywords": [
@@ -24,6 +24,7 @@
   "devDependencies": {
     "chai": "^3.4.1",
     "mocha": "^2.3.4",
+    "nock": "^3.6.0",
     "sinon": "^1.17.2"
   }
 }
