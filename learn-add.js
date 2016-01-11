@@ -4,6 +4,7 @@ var path = require('path');
 var agent = require('./agent');
 var program = require('commander');
 var login = require('./login');
+var spawn = require('child_process').spawn;
 
 var getDefaultValues = require('./loadDefaultValues');
 
@@ -15,6 +16,10 @@ function addingWord(word) {
     word: word,
     lang: 'en'
   }];
+
+  // open browser with free dictionary
+  spawn('open', ['http://www.thefreedictionary.com/' + word]);
+
   return function() {
     return new Promise(function(resolve, reject) {
         getDefaultValues()
