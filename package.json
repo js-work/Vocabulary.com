@@ -7,7 +7,8 @@
     "learn": "learn.js"
   },
   "scripts": {
-    "test": "mocha test/",
+    "test": "mocha test/ -w",
+    "test:single": "mocha test/",
     "start": "node learn.js"
   },
   "keywords": [
@@ -23,8 +24,14 @@
   },
   "devDependencies": {
     "chai": "^3.4.1",
+    "cz-conventional-changelog": "^1.1.5",
     "mocha": "^2.3.4",
     "nock": "^3.6.0",
     "sinon": "^1.17.2"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
