@@ -2,7 +2,7 @@
 CLI for Vocabulary.com
 
 ##Installation
-**Require NodeJS installed**
+**Require NodeJS installed**  
 Run `npm i -g vocabulary.com` 
 
 ##Login
