@@ -18,19 +18,14 @@ function addingWord(word) {
   }];
 
   // open browser with free dictionary
-  spawn('open', ['http://www.thefreedictionary.com/' + word]);
+  spawn('open', ['https://www.thefreedictionary.com/' + word]);
 
   return function() {
     return new Promise(function(resolve, reject) {
         getDefaultValues()
         .then(function(defaultValues) {
-            agent.post('http://www.vocabulary.com/lists/save.json')
+            agent.post('https://www.vocabulary.com/lists/save.json')
             .type('form')
-            .set({
-                'Host': 'www.vocabulary.com',
-                'Origin': 'http://www.vocabulary.com',
-                'Referer': 'http://www.vocabulary.com/dictionary/book'
-            })
             .send({
                 addwords: JSON.stringify(words),
                 id: defaultValues.listID
