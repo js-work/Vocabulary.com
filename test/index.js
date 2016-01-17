@@ -1,7 +1,5 @@
 var sinon = require('sinon');
 var expect = require('chai').expect;
-var nock = require('nock');
-var superagent = require('superagent');
 
 var getDefaultValues = require('../loadDefaultValues');
 
@@ -35,15 +33,4 @@ describe('Adding word', function() {
 });
 
 describe('Login', function() {
-    it('Login successfully', function(done) {
-        nock('https://www.vocabulary.com')
-        .get('/login')
-        .reply(200, {foo: 'bar'})
-
-        superagent.get('https://www.vocabulary.com/login')
-        .end(function(err, res) {
-            console.log(err, res.body);
-            done();
-        })
-    })
 });
