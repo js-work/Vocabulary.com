@@ -19,6 +19,7 @@ function addingWord(word) {
 
   // open browser with free dictionary
   spawn('open', ['https://www.thefreedictionary.com/' + word]);
+  spawn('say', [word]);
 
   return function() {
     return new Promise(function(resolve, reject) {
